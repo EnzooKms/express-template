@@ -4,7 +4,7 @@
   "description": "oclif example Hello World CLI",
   "author": "EnzooKms @EnzooKms",
   "bin": {
-    "mynewcli": "./bin/run"
+    "exp": "./bin/run"
   },
   "homepage": "https://github.com/EnzooKms/mynewcli",
   "license": "MIT",
@@ -20,12 +20,13 @@
     "@oclif/core": "^2",
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-plugins": "^2.4.7",
-    "inquirer": "^8.2.5"
+    "inquirer": "8.2.5",
+    "pkg-dir": "^5.0.0"
   },
   "devDependencies": {
     "@oclif/test": "^2.3.22",
     "@types/chai": "^4",
-    "@types/inquirer": "^8.2.5",
+    "@types/inquirer": "8.2.5",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.18.36",
     "chai": "^4",
