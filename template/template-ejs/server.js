@@ -15,10 +15,6 @@ fs.readdirSync('./routers').forEach(async f => {
 
 })
 
-// const { router: home } = require('./routers/home/home')
-
-// app.use(home)
-
 app.set('views', './resources/views')
 app.set('view engine', 'ejs')
 

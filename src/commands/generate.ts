@@ -33,7 +33,7 @@ export default class Generate extends Command {
   }
 
   static args = {
-    dest: Args.directory({ exists: false, default: `${process.cwd()}/express-template` })
+    dest: Args.directory({ exists: false, default: `${process.cwd()}/express-app` })
   }
 
   public async run(): Promise<void> {
