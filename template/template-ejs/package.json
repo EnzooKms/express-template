@@ -1,5 +1,5 @@
 {
-  "name": "express-template",
+  "name": "express-ejs",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -13,5 +13,8 @@
     "server": "nodemon server.js"
   },
   "author": "Enzoo_Kms",
-  "license": "ISC"
+  "license": "ISC",
+  "cli": {
+    "engine": "ejs"
+  }
 }
