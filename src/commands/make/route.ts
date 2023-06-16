@@ -1,4 +1,5 @@
-import { Args, Command, Flags } from '@oclif/core'
+import { Args, Command, Flags, ux } from '@oclif/core'
+import { CustomColors } from '@oclif/color'
 import * as inquirer from 'inquirer'
 import * as fs from 'fs'
 
@@ -25,15 +26,7 @@ export default class MakeRoute extends Command {
 
 function createRoute() {
 
-    let ext: any;
-
-    fs.readFile('./package.json', 'utf8', (err, data) => {
-        if (err) {
-            console.error(err);
-            return;
-        }
-        ext = JSON.parse(data).cli.engine
-    });
+    let ext: string;
 
     inquirer.prompt([
         {
@@ -42,6 +35,27 @@ function createRoute() {
             name: 'route'
         }
     ]).then(answer => {
+
+        fs.readFile('./package.json', 'utf8', (err, data) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            const exts = ['html', 'ejs']
+
+            if (!JSON.parse(data).cli || !JSON.parse(data).cli.engine) {
+                ux.error(`Dans votre package.json veuillez spécifier le moteur de template : \n\t${CustomColors.cmd('"cli": {\n\t  "engine": "html"\n\t}\n\n')}`, { code: '400' })
+            }
+
+            ext = JSON.parse(data).cli.engine.toLowerCase()
+
+            if (!exts.find(el => el === ext)) {
+                ux.error(`.${ext} n'est pas une extension pris en charge`, { code: '400' })
+
+            }
+        });
+
+        if (!answer.route.includes('/')) answer.route = `${answer.route}/${answer.route}`
 
         const spliter = answer.route.split('/')
         const view = spliter[spliter.length - 1]
@@ -90,7 +104,7 @@ function createRoute() {
 
                             else {
 
-                                const routeWrite = `const { Router } = require('express');\nconst router = Router();\n\nrouter.get('/${answer.route}', (req, res) => {\n\tres.render('${answer.route}', { title: '${answer.route}' });\n})\n\nmodule.exports = { router };`
+                                const routeWrite = `const { Router } = require('express');\nconst router = Router();\n\nrouter.get('/${answer.route}', (req, res) => {\n\t${ext === 'html' ? `res.sendFile(\`\${process.cwd()}\}/${answer.route}\`)` : `res.render('${answer.route}', { title: '${answer.route}' });`}\n})\n\nmodule.exports = { router };`
                                 const viewWrite = `<!DOCTYPE html>\n<html lang="fr-fr">\n\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<link rel="stylesheet" href="/resources/css/${answer.route}.css">\n<title>\n\t<%= title %>\n</title>\n</head>\n\n<body>\n\n\t<script src="/resources/js/${answer.route}.js" type="module"></script>\n</body>\n\n</html>`
                                 const cssWrite = `html {\n\tbackground-color: #242424;\n\tbox-sizing: border-box;\n\tfont-size: 16px;\n\t}\n\n*,\n*:before,\n*:after {\n\tbox-sizing: inherit;\nmargin: 0;\npadding: 0;\n}\n\nbody {\n\theight: 100vh;\n\twidth: 100vw;\n}\n\nbody,\nh1,\n,\nh3,\nh4,\nh5,\nh6,\np,\nol,\nul {\n\tmargin: 0;\n\tpadding: 0;\n\tfont-weight: normal;\n\t}\n\nol,\nul {\n\tlist-style: none;\n}\n\nimg,\npicture img,\npicture source,\niframe {\n\tmax-width: 100%;\n\theight: auto;\n}\n\na {\n\ttext-decoration: none;\n\tcolor: black;\n}`
 
