@@ -1,0 +1,20 @@
+{
+  "name": "epxress-html",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.0",
+    "express": "^4.18.2"
+  },
+  "scripts": {
+    "server": "nodemon server"
+  },
+  "author": "Enzoo_Kms",
+  "license": "ISC",
+  "cli": {
+    "engine": "html"
+  }
+}
