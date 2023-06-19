@@ -1,0 +1,19 @@
+doctype html
+html(lang="fr-fr")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title #{title}
+        link(rel="stylesheet", href="resources/css/home.css")
+    body 
+         #app 
+            div 
+                a(href="https://pugjs.org/api/getting-started.html")
+                    img(src="../../public/Pug.png", alt="Pug logo").logo
+                a(href="https://expressjs.com/")
+                    img(src="../../public/ExpressJs.png", alt="ExpressJS logo").logo.vanilla
+            h1 #{h1}
+            .card 
+                button(type="button")#counter
+            p.read-the-docs Click on the Pug logo to learn more
+         script(type="module", src="resources/js/home.js") 
