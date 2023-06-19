@@ -14,5 +14,8 @@
     "server": "nodemon server"
   },
   "author": "Enzoo_Kms",
-  "license": "ISC"
+  "license": "ISC",
+  "cli": {
+    "engine": "edge"
+  }
 }
