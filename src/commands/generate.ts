@@ -1,7 +1,6 @@
 import { Args, Command, Flags, ux } from '@oclif/core'
 import * as inquirer from 'inquirer'
 import * as fs from 'fs'
-import { sync } from 'pkg-dir'
 import path = require('path')
 
 function copy(src: string, dest: string) {
@@ -45,13 +44,14 @@ export default class Generate extends Command {
         message: 'Choisis un template : ',
         choices: [
           'html',
-          'ejs'
+          'ejs',
+          'edge',
+          'pug'
         ]
       }
     ])
 
     ux.action.stop()
-    const value = sync(process.cwd())
     copyDir(`${__dirname}/../../template/template-${choice.template}`, args.dest)
   }
 }
